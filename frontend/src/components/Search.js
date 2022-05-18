@@ -3,6 +3,7 @@ import 'antd/dist/antd.css';
 import "../css/Search.scss";
 import { Button, Spin } from 'antd';
 import axios from 'axios';
+import SearchNews from "./SearchNews";
 
 const Uploader = (props) => {
 
@@ -70,8 +71,9 @@ const Uploader = (props) => {
         ) : (
           <Spin className="img-spinner" tip = "이미지 불러오는중"/>
         )}
+        
       </div>
-
+       
       <div className="upload-button">
         <Button type="primary"id="image_upload" onClick={() => inputRef.click()}>
           이미지 업로드
@@ -82,6 +84,7 @@ const Uploader = (props) => {
         <Button type="ghost" id="search_btn" onClick={sendImageToServer}>
           검색
         </Button>
+        <SearchNews></SearchNews>
       </div>
 
     </div>
