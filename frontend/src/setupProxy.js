@@ -1,11 +1,11 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
 module.exports = function (app) {
   app.use(
-    createProxyMiddleware("/naver", {
-      target: "https://openapi.naver.com",
+    createProxyMiddleware("/api", {
+      target: "http://localhost:3005/",
       changeOrigin: true,
       pathRewrite: {
-        "^/naver/": "/",
+        "^/api/": "/",
       },
     })
   );

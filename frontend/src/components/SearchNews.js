@@ -1,18 +1,18 @@
-import { Fragment, useState } from 'react';
-import SearchNewsitem from "./SearchNewsitem"
-import axios from 'axios';
+import { Fragment, useState } from "react";
+import SearchNewsitem from "./SearchNewsitem";
+import axios from "axios";
 import { Input } from "antd";
 const { Search } = Input;
 
 const NewsSearchContainer = () => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const handleQuery = (e) => {
     setQuery(e.target.value);
   };
   const [items, setItems] = useState();
   const handleButton = async () => {
     try {
-      const res = await axios.get("http://localhost:3005/naver/getNaverNews", {
+      const res = await axios.get("/api/naverNews", {
         params: {
           query: query,
         },
@@ -41,15 +41,10 @@ const NewsSearchContainer = () => {
       </div>
 
       <div>
-        
-          {items && items.map((item) => {
-            return (
-             
-                <SearchNewsitem item={item}></SearchNewsitem>
-             
-            );
+        {items &&
+          items.map((item) => {
+            return <SearchNewsitem item={item}></SearchNewsitem>;
           })}
-       
       </div>
     </Fragment>
   );
