@@ -1,14 +1,15 @@
 var express = require("express");
 var router = express.Router();
 const axios = require("axios");
+require("dotenv").config();
 
 /* GET home page. */
 router.get("/", async function (req, res) {
   let query = req.query.query;
   let reqOptions = {
     headers: {
-      "X-Naver-Client-Id": "d6xuugCaobmkj30aPd0H",
-      "X-Naver-Client-Secret": "f55mf_tFib",
+      "X-Naver-Client-Id": process.env.Naver_Id,
+      "X-Naver-Client-Secret": process.env.Naver_Secret,
     },
     params: {
       query: query,
