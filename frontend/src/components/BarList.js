@@ -14,7 +14,6 @@ export default function BarList(props) {
         return (
           <Bar
             barClickHandler={ClickHandler}
-            key={bar.title}
             title={bar.title}
             detail={bar.detail + props.detailUnit}
             var={bar.var}
