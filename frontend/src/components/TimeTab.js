@@ -39,14 +39,14 @@ export default function TimeTab(props) {
   const clickHandler = (_Id) => {
     setUseIndex(_Id);
   };
-  const barClickHandler = () => {
-    props.barClickHandler();
+  const barClickHandler = (_Title) => {
+    props.barClickHandler(_Title);
   };
   const [bars, setBars] = useState([]);
   useEffect(() => {
     setBars([
-      { title: "뉴스 제목", detail: 60 },
-      { title: "뉴스 제목2", detail: 50 },
+      { title: "뉴스 제목", detail: 60, var: "뉴스 제목" },
+      { title: "뉴스 제목2", detail: 50, var: "뉴스 제목2" },
     ]);
   }, []);
   return (
