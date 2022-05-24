@@ -11,6 +11,7 @@ export default function Bar(props) {
       newBars.push({
         title: item.title,
         detail: item.detail,
+        description: item.description,
         var: index,
       });
     });
@@ -30,7 +31,10 @@ export default function Bar(props) {
         <div>{`${pubDate}년도`}</div>
     */
     isPage ? (
-      bars[pageIndex].title
+      <div>
+        <h1>{bars[pageIndex].title}</h1>
+        <div>{bars[pageIndex].description}</div>
+      </div>
     ) : (
       <BarList
         barClickHandler={barClickHandler}
