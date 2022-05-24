@@ -4,17 +4,16 @@ import axios from "axios";
 import { Input } from "antd";
 const { Search } = Input;
 
-const NewsSearchContainer = () => {
-  const [query, setQuery] = useState("");
+const NewsSearchContainer = (props) => {
   const handleQuery = (e) => {
-    setQuery(e.target.value);
+    props.setTitle(e.target.value);
   };
   const [items, setItems] = useState();
   const handleButton = async () => {
     try {
       const res = await axios.get("/api/naverNews", {
         params: {
-          query: query,
+          query: props.title,
         },
       });
       if (res && res.status === 200) {
@@ -33,6 +32,7 @@ const NewsSearchContainer = () => {
       >
         <Search
           placeholder="검색어 나오는 곳"
+          value={props.title}
           onSearch={(value) => console.log(value)}
           onChange={handleQuery}
           onClick={handleButton}
@@ -41,10 +41,7 @@ const NewsSearchContainer = () => {
       </div>
 
       <div>
-        {items &&
-          items.map((item) => {
-            return <SearchNewsitem item={item}></SearchNewsitem>;
-          })}
+        {items == null ? "" : <SearchNewsitem items={items}></SearchNewsitem>}
       </div>
     </Fragment>
   );

@@ -4,12 +4,14 @@ import Search from "./Search";
 import TimeTab from "./TimeTab";
 
 export default function MenuTab() {
+  const [useTitle, setTitle] = useState("");
   const [useIndex, setUseIndex] = useState(0);
   const clickHandler = (_Id) => {
     setUseIndex(_Id);
   };
-  const menuSelect = () => {
+  const menuSelect = (_Title) => {
     setUseIndex(0);
+    setTitle(_Title);
   };
   const menuArr = [
     {
@@ -21,7 +23,7 @@ export default function MenuTab() {
           검색
         </li>
       ),
-      content: <Search></Search>,
+      content: <Search title={useTitle} setTitle={setTitle}></Search>,
     },
     {
       title: (
