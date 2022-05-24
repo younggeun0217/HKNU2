@@ -3,12 +3,20 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-
+const mongoose = require("mongoose");
+require("dotenv").config();
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var naverRouter = require("./routes/naver");
 const app = express();
-
+mongoose
+  .connect(process.env.mongoDBurl)
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
