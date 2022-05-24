@@ -1,19 +1,27 @@
-import React from 'react';
-import '../css/SearchNewsitem.scss';
-const news = ({ item }) => {
-  const { title, originallink, link, description, pubDate } = item;
+import React, { useEffect, useState } from "react";
+import BarList from "./BarList";
+
+export default function Bar(props) {
+  const [bars, setBars] = useState([]);
+  useEffect(() => {
+    const newBars = [];
+    props.items.map((item) => {
+      newBars.push({
+        title: item.title,
+        detail: item.detail,
+      });
+    });
+    setBars(newBars);
+  }, []);
   return (
-    
-      <div className="news-text">
-        <h2>{title}</h2>
+    /*
+            <h2>{title}</h2>
         <h2>{originallink}</h2>
         <h2>{link}</h2>
         <h2>{description}</h2>
         <div>{`${pubDate}년도`}</div>
-        
-     
-      </div>
-    
+    */
+
+    <BarList bars={bars} detailUnit="%"></BarList>
   );
-};
-export default news;
+}

@@ -23,7 +23,7 @@ export default function MenuTab() {
           검색
         </li>
       ),
-      content: <Search title={useTitle}></Search>,
+      content: <Search title={useTitle} setTitle={setTitle}></Search>,
     },
     {
       title: (
