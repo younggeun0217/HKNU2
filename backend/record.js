@@ -5,7 +5,7 @@ const recordSchema = new mongoose.Schema({
   date: {
     type: Date,
     index: true,
-    default: new Date(Date.now()).setHours(0, 0, 0, 0),
+    default: new Date().setHours(12, 0, 0, 0),
   },
 });
 module.exports = mongoose.model("Record", recordSchema);
