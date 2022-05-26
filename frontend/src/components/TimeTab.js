@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "../css/TimeTab.module.css";
 import BarList from "./BarList";
-
+import axios from "axios";
 export default function TimeTab(props) {
   const [useIndex, setUseIndex] = useState(0);
+  const urlArr = ["day", "week", "year"];
   const menuArr = [
     {
       title: (
@@ -36,18 +37,26 @@ export default function TimeTab(props) {
       ),
     },
   ];
-  const clickHandler = (_Id) => {
+  const clickHandler = async (_Id) => {
     setUseIndex(_Id);
+    const res = await axios.get("/api/rank/" + urlArr[_Id]);
+    const { data } = res;
+    const newArr = [];
+    data.map((_data, index) => {
+      newArr.push({
+        title: _data._id,
+        var: _data._id,
+        detail: _data.count,
+      });
+    });
+    setBars(newArr);
   };
   const barClickHandler = (_Title) => {
     props.barClickHandler(_Title);
   };
   const [bars, setBars] = useState([]);
   useEffect(() => {
-    setBars([
-      { title: "뉴스 제목", detail: 60, var: "뉴스 제목" },
-      { title: "뉴스 제목2", detail: 50, var: "뉴스 제목2" },
-    ]);
+    clickHandler(0);
   }, []);
   return (
     <>
