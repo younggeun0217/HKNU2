@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "antd/dist/antd.css";
-import "../css/Search.scss";
+import "../../css/Search.scss";
 import { Button, Spin } from "antd";
 import axios from "axios";
 import SearchNews from "./SearchNews";

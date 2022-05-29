@@ -33,9 +33,9 @@ const NewsSearchContainer = (props) => {
         <Search
           placeholder="검색어 나오는 곳"
           value={props.title}
-          onSearch={(value) => console.log(value)}
+          onSearch={handleButton}
           onChange={handleQuery}
-          onClick={handleButton}
+          onPressEnter={handleButton}
           style={{ width: 200 }}
         />
       </div>

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import styles from "../css/TimeTab.module.css";
-import BarList from "./BarList";
+import styles from "../../css/HistoryTab.module.css";
+import BarList from "../BarList";
 import axios from "axios";
-export default function TimeTab(props) {
+export default function HistoryTab(props) {
   const [useIndex, setUseIndex] = useState(0);
   const urlArr = ["day", "week", "year"];
   const menuArr = [

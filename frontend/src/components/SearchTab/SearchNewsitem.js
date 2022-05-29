@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import BarList from "./BarList";
+import BarList from "../BarList";
 
 export default function Bar(props) {
   const [bars, setBars] = useState([]);
