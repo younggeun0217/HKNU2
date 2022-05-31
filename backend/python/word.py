@@ -1,5 +1,4 @@
 #flask,flask_cors, flask-restx,sentence_transformers 설치(오류시 관리자 권한 또는 --user)
-import json
 from sentence_transformers import SentenceTransformer, util
 import numpy as np
 from flask import Flask,request
