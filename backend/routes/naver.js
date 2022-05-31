@@ -29,7 +29,13 @@ router.get("/", async function (req, res) {
       "https://openapi.naver.com/v1/search/news.json",
       reqOptions
     );
-    return res.json(newsRes.data);
+    const data = newsRes.data;
+    //const pythonRes =
+    await axios.post("http://localhost:5000/", {
+      title: query,
+      data: data,
+    });
+    return res.json(data);
   } catch (e) {
     return res.json({
       status: 400,
