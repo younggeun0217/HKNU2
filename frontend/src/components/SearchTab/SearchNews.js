@@ -8,7 +8,14 @@ const NewsSearchContainer = (props) => {
   const handleQuery = (e) => {
     props.setTitle(e.target.value);
   };
-  const [items, setItems] = useState();
+  const [bars, setBars] = useState([]);
+  const [isPage, setPage] = useState(false);
+  const [pageIndex, setPageIndex] = useState(-1);
+  const updateBar = () => {};
+  const barClickHandler = (_Index) => {
+    setPageIndex(_Index);
+    setPage(true);
+  };
   const handleButton = async () => {
     try {
       const res = await axios.get("/api/naverNews", {
@@ -19,7 +26,17 @@ const NewsSearchContainer = (props) => {
       if (res && res.status === 200) {
         const { data } = res;
         console.log(data);
-        setItems(data.items);
+        const newBars = [];
+        data.items.map((item, index) => {
+          newBars.push({
+            title: item.title,
+            detail: item.detail,
+            description: item.description,
+            var: index,
+          });
+        });
+        setBars(newBars);
+        setPage(false);
       }
     } catch (e) {
       console.log("error ", e);
@@ -41,7 +58,16 @@ const NewsSearchContainer = (props) => {
       </div>
 
       <div>
-        {items == null ? "" : <SearchNewsitem items={items}></SearchNewsitem>}
+        {bars == null ? (
+          ""
+        ) : (
+          <SearchNewsitem
+            bars={bars}
+            barClickHandler={barClickHandler}
+            isPage={isPage}
+            pageIndex={pageIndex}
+          ></SearchNewsitem>
+        )}
       </div>
     </Fragment>
   );
