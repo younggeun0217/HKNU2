@@ -23,22 +23,18 @@ const NewsSearchContainer = (props) => {
       });
       if (res && res.status === 200) {
         const { data } = res;
-        console.log(data);
         const newBars = [];
-        data.items.map((item, index) => {
-          const noHTMLTitle = item.title
-            .replace(/(<([^>]+)>)/gi, "")
-            .replace(/&quot;/g, "'")
-            .replace(/\"n/, " ")
-            .replace(/&amp;/g, '"');
-          newBars.push({
-            title: noHTMLTitle,
-            detail: item.detail,
-            description: item.description,
-            var: index,
-            link: item.link,
+        if (data.items) {
+          data.items.map((item, index) => {
+            newBars.push({
+              title: item.title,
+              detail: item.detail,
+              description: item.description,
+              var: index,
+              link: item.link,
+            });
           });
-        });
+        }
         setBars(newBars);
       }
     } catch (e) {

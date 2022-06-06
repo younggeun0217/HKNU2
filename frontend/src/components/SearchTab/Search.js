@@ -6,7 +6,6 @@ import axios from "axios";
 import SearchNews from "./SearchNews";
 
 const Uploader = (props) => {
-  console.log(props);
   const [image, setImage] = useState({
     image_file: "",
     preview_URL: "img/default_image.png",

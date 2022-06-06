@@ -7,14 +7,20 @@ embedder = SentenceTransformer("jhgan/ko-sroberta-multitask")
 
 app=Flask(__name__)
 api=Api(app)
+def sentenceToScore(corpus,title):
+  corpus_embeddings = embedder.encode(corpus, convert_to_tensor=True)
+  title_embedding = embedder.encode(title, convert_to_tensor=True)
+  cos_scores = util.pytorch_cos_sim(title_embedding, corpus_embeddings)[0]
+  cos_scores = cos_scores.cpu()
+  return cos_scores
 @api.route('/') 
 class wordPost(Resource):
     def post(self):
-      print(request.json.get('title'))
-      return
+      searchTitle=request.json.get('title')
+      objectList=request.json.get('data')['items']
+      titleList=[o['title'] for o in objectList]
+      scoreList=sentenceToScore(titleList,searchTitle).tolist()
+      return scoreList
 # Corpus with example sentences
 if __name__ == "__main__":
     app.run(debug=True)
-def sentenceToScore(corpus):
-  print(corpus)
-  return
