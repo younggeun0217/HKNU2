@@ -25,11 +25,31 @@ router.get("/", async function (req, res) {
     },
   };
   try {
-    let newsRes = await axios.get(
+    const newsRes = await axios.get(
       "https://openapi.naver.com/v1/search/news.json",
       reqOptions
     );
-    return res.json(newsRes.data);
+    let data = newsRes.data;
+    for (var i = 0; i < data.items.length; ++i) {
+      data.items[i].title = data.items[i].title
+        .replace(/(<([^>]+)>)/gi, "")
+        .replace(/&quot;/g, "'")
+        .replace(/\"n/, " ")
+        .replace(/&amp;/g, '"')
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">");
+    }
+    const pythonRes = await axios.post("http://localhost:5000/", {
+      title: query,
+      data: data,
+    });
+    for (var i = 0; i < data.items.length; ++i) {
+      data.items[i].detail = (pythonRes.data[i] * 100).toFixed(2);
+    }
+    data.items.sort(function (a, b) {
+      return b.detail - a.detail;
+    });
+    return res.json(data);
   } catch (e) {
     return res.json({
       status: 400,
