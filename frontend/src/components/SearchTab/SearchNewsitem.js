@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import BarList from "../BarList";
-
 export default function Bar(props) {
   const barClickHandler = (_Index) => {
     props.barClickHandler(_Index);
@@ -13,17 +12,10 @@ export default function Bar(props) {
         <h2>{description}</h2>
         <div>{`${pubDate}년도`}</div>
     */
-    props.isPage ? (
-      <div>
-        <h1>{props.bars[props.pageIndex].title}</h1>
-        <div>{props.bars[props.pageIndex].description}</div>
-      </div>
-    ) : (
-      <BarList
-        barClickHandler={barClickHandler}
-        bars={props.bars}
-        detailUnit="%"
-      ></BarList>
-    )
+    <BarList
+      barClickHandler={barClickHandler}
+      bars={props.bars}
+      detailUnit="%"
+    ></BarList>
   );
 }
