@@ -9,12 +9,10 @@ const NewsSearchContainer = (props) => {
     props.setTitle(e.target.value);
   };
   const [bars, setBars] = useState([]);
-  const [isPage, setPage] = useState(false);
   const [pageIndex, setPageIndex] = useState(-1);
-  const updateBar = () => {};
   const barClickHandler = (_Index) => {
     setPageIndex(_Index);
-    setPage(true);
+    window.open(bars[_Index].link);
   };
   const handleButton = async () => {
     try {
@@ -28,15 +26,20 @@ const NewsSearchContainer = (props) => {
         console.log(data);
         const newBars = [];
         data.items.map((item, index) => {
+          const noHTMLTitle = item.title
+            .replace(/(<([^>]+)>)/gi, "")
+            .replace(/&quot;/g, "'")
+            .replace(/\"n/, " ")
+            .replace(/&amp;/g, '"');
           newBars.push({
-            title: item.title,
+            title: noHTMLTitle,
             detail: item.detail,
             description: item.description,
             var: index,
+            link: item.link,
           });
         });
         setBars(newBars);
-        setPage(false);
       }
     } catch (e) {
       console.log("error ", e);
@@ -64,7 +67,6 @@ const NewsSearchContainer = (props) => {
           <SearchNewsitem
             bars={bars}
             barClickHandler={barClickHandler}
-            isPage={isPage}
             pageIndex={pageIndex}
           ></SearchNewsitem>
         )}
