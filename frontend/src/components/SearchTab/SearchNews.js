@@ -2,6 +2,7 @@ import { Fragment, useState } from "react";
 import SearchNewsitem from "./SearchNewsitem";
 import axios from "axios";
 import { Input } from "antd";
+import "../../css/Search.css";
 const { Search } = Input;
 
 const NewsSearchContainer = (props) => {
