@@ -1,0 +1,28 @@
+.tabs li {
+  width: calc(100% / 3);
+  height: auto;
+  background-color: #2074dc;
+  line-height: 50px;
+  font-size: 20px;
+  text-align: center;
+  color: #ffffff;
+  display: block;
+  float: left;
+  text-align: center;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+.tabs li.active {
+  width: calc(100% / 3);
+  height: auto;
+  background-color: #ffffff;
+  line-height: 50px;
+  font-size: 20px;
+  text-align: center;
+  color: #2074dc;
+  display: block;
+  float: left;
+  text-align: center;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "../css/MenuTab.module.css";
-import Search from "./Search";
-import TimeTab from "./TimeTab";
+import Search from "./SearchTab/Search";
+import HistoryTab from "./HistoryTab/HistoryTab";
 
 export default function MenuTab() {
   const [useTitle, setTitle] = useState("");
@@ -34,7 +34,7 @@ export default function MenuTab() {
           화제가 됐던 검색어
         </li>
       ),
-      content: <TimeTab barClickHandler={menuSelect}></TimeTab>,
+      content: <HistoryTab barClickHandler={menuSelect}></HistoryTab>,
     },
   ];
   return (
