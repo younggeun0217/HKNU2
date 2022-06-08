@@ -10,7 +10,6 @@ var usersRouter = require("./routes/users");
 var naverRouter = require("./routes/naver");
 var rankRouter = require("./routes/rank");
 
-var uploadRouter = require("./upload");
 
 const app = express();
 mongoose
