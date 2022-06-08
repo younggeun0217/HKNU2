@@ -8,16 +8,10 @@ require("dotenv").config();
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var naverRouter = require("./routes/naver");
-<<<<<<< HEAD
-<<<<<<< HEAD
-var ocrRouter = require("./routes/ocr");
+var rankRouter = require("./routes/rank");
 
-=======
-var rankRouter = require("./routes/rank");
->>>>>>> 1d0d988fbd2e0718dc3fd1428f86d687a1515093
-=======
-var rankRouter = require("./routes/rank");
->>>>>>> 1d0d988fbd2e0718dc3fd1428f86d687a1515093
+var uploadRouter = require("./upload");
+
 const app = express();
 mongoose
   .connect(process.env.mongoDBurl)
@@ -40,16 +34,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/naverNews", naverRouter);
-<<<<<<< HEAD
-<<<<<<< HEAD
-app.use("/ocr",ocrRouter );
+app.use("/rank", rankRouter);
 
-=======
-app.use("/rank", rankRouter);
->>>>>>> 1d0d988fbd2e0718dc3fd1428f86d687a1515093
-=======
-app.use("/rank", rankRouter);
->>>>>>> 1d0d988fbd2e0718dc3fd1428f86d687a1515093
+
 const cors = require("cors");
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
