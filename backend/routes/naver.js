@@ -6,7 +6,7 @@ require("dotenv").config();
 
 /* GET home page. */
 router.get("/", async function (req, res) {
-  let query = req.query.query;
+  let query = req.query.title;
   await Record.findOneAndUpdate(
     {
       searchTitle: query,

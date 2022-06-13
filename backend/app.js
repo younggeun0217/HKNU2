@@ -5,10 +5,10 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 require("dotenv").config();
-var kakaoRouter = require("./routes/kakao");
-var naverRouter = require("./routes/naver");
-var rankRouter = require("./routes/rank");
-
+const kakaoRouter = require("./routes/kakao");
+const naverRouter = require("./routes/naver");
+const rankRouter = require("./routes/rank");
+const URLRouter = require("./routes/imageURL");
 const app = express();
 mongoose
   .connect(process.env.mongoDBurl)
@@ -25,6 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use("/imageURL", URLRouter);
 app.use("/kakaoOCR", kakaoRouter);
 app.use("/naverNews", naverRouter);
 app.use("/rank", rankRouter);

@@ -57,7 +57,11 @@ const Uploader = (props) => {
           style={{ display: "none" }}
         />
 
-        <SearchNews title={props.title} setTitle={setTitle}></SearchNews>
+        <SearchNews
+          title={props.title}
+          setTitle={setTitle}
+          setFile={setFile}
+        ></SearchNews>
       </div>
     </div>
   );
