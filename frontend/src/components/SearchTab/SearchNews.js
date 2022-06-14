@@ -38,7 +38,7 @@ const NewsSearchContainer = (props) => {
     try {
       const res = await axios.get("/api/naverNews", {
         params: {
-          query: props.title,
+          title: props.title,
         },
       });
       if (res && res.status === 200) {
