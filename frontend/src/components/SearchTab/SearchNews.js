@@ -2,6 +2,7 @@ import { Fragment, useState } from "react";
 import SearchNewsitem from "./SearchNewsitem";
 import axios from "axios";
 import { Input } from "antd";
+import "../../css/Search.css";
 const { Search } = Input;
 
 const NewsSearchContainer = (props) => {
@@ -14,7 +15,26 @@ const NewsSearchContainer = (props) => {
     setPageIndex(_Index);
     window.open(bars[_Index].link);
   };
+  const checkURL = (url) => {
+    return url.match(/(http|https?:\/\/.*\.(?:jpeg|jpg|gif|png))/i) != null;
+  };
   const handleButton = async () => {
+    if (checkURL(props.title)) {
+      //이미지 URL일 시 백엔드에서 처리 후(cors해결) 받아와서 파일로 만들어주기
+      const res = await axios.get("/api/imageURL", {
+        params: {
+          url: props.title,
+        },
+      });
+      const fileName = props.title.match(/[\w\.\$]+(?=jpeg|jpg|gif|png)\w+/g);
+      const contentType = res.data.contentType;
+      const buffer = res.data.buffer.data;
+      const blob = new Blob([new Uint8Array(buffer).buffer], {
+        type: contentType,
+      });
+      const file = new File([blob], fileName, { type: contentType });
+      props.setFile(file);
+    }
     try {
       const res = await axios.get("/api/naverNews", {
         params: {

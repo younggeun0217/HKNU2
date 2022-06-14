@@ -6,7 +6,7 @@ require("dotenv").config();
 
 /* GET home page. */
 router.get("/", async function (req, res) {
-  let query = req.query.query;
+  let query = req.query.title;
   await Record.findOneAndUpdate(
     {
       searchTitle: query,
@@ -49,7 +49,7 @@ router.get("/", async function (req, res) {
     data.items.sort(function (a, b) {
       return b.detail - a.detail;
     });
-    return res.json(data);
+    return res.json(newsRes.data);
   } catch (e) {
     return res.json({
       status: 400,
