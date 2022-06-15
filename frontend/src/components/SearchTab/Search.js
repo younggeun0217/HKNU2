@@ -1,34 +1,15 @@
-import { useState } from "react";
+import React from "react";
 import "../../css/Ocr.css";
-
 import axios from "axios";
 import "antd/dist/antd.css";
 import "../../css/Search.scss";
-import { Button, Spin } from "antd";
 import SearchNews from "./SearchNews";
+import { Upload } from "antd";
+const { Dragger } = Upload;
 
 const Uploader = (props) => {
-  const [image, setImage] = useState("");
-
-  const [ocr, setOcr] = useState("");
-  const [loaded, setLoaded] = useState(false);
-
   const setTitle = (_Title) => {
     props.setTitle(_Title);
-  };
-  const fileUpload = (e) => {
-    let reader = new FileReader();
-
-    reader.onloadend = () => {
-      const img = reader.result;
-      if (img) {
-        setImage(img.toString());
-      }
-    };
-    if (e.target.files[0]) {
-      reader.readAsDataURL(e.target.files[0]);
-      setFile(e.target.files[0]);
-    }
   };
   const setFile = (image) => {
     try {
@@ -41,22 +22,26 @@ const Uploader = (props) => {
       console.error(e);
     }
   };
-
+  const dummyRequest = async ({ file, onSuccess }) => {
+    setTimeout(() => {
+      onSuccess();
+    }, 0);
+  };
+  const onChange = (info) => {
+    if (info.file.status === "done") setFile(info.fileList[0].originFileObj);
+  };
   return (
     <div className="App">
       <div>
-        <label className="input-file-button" for="file">
-          이미지 업로드
-        </label>
-        <input
-          type="file"
-          name="file"
-          id="file"
-          onChange={fileUpload}
+        <Dragger
+          maxCount={1}
           accept="image/*"
-          style={{ display: "none" }}
-        />
-
+          customRequest={dummyRequest}
+          onChange={onChange}
+          showUploadList={false}
+        >
+          <p className="ant-upload-text">이미지를 업로드하세요.</p>
+        </Dragger>
         <SearchNews
           title={props.title}
           setTitle={setTitle}
