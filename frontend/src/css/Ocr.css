@@ -1,14 +1,8 @@
 .App {
-    padding: 10px;
+  padding: 10px;
 }
-
-.input-file-button {
-    padding: 6px 25px;
-    background-color: #073df1;
-    border-radius: 4px;
-    color: white;
-    cursor: pointer;
-    left: 35%;
-    top: 60px;
-    position: relative;
+.ant-upload-drag {
+  width: 80% !important;
+  left: 10%;
+  right: 10%;
 }

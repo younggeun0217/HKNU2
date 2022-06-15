@@ -63,16 +63,14 @@ const NewsSearchContainer = (props) => {
   };
   return (
     <Fragment>
-      <div
-        style={{ display: "flex", justifyContent: "center", padding: "2rem" }}
-      >
+      <div style={{ display: "flex", justifyContent: "center", padding: "1%" }}>
         <Search
           placeholder="검색어 나오는 곳"
           value={props.title}
           onSearch={handleButton}
           onChange={handleQuery}
           onPressEnter={handleButton}
-          style={{ width: 200 }}
+          style={{ width: "40%" }}
         />
       </div>
 
