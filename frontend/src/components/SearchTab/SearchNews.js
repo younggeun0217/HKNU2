@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import SearchNewsitem from "./SearchNewsitem";
 import axios from "axios";
 import { Input } from "antd";
@@ -59,6 +59,19 @@ const NewsSearchContainer = (props) => {
       }
     } catch (e) {
       console.log("error ", e);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("paste", handlePaste);
+  }, []);
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const items = e.clipboardData.items;
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].type.indexOf("image") !== -1) {
+        var pasteFile = items[i].getAsFile();
+        props.setFile(pasteFile);
+      }
     }
   };
   return (

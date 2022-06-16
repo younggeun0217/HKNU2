@@ -11,13 +11,14 @@ const Uploader = (props) => {
   const setTitle = (_Title) => {
     props.setTitle(_Title);
   };
-  const setFile = (image) => {
+  const setFile = async (image) => {
     try {
       const formData = new FormData();
       formData.append("image", image);
-      const res = axios.post("/api/kakaoOCR", formData, {
+      const res = await axios.post("/api/kakaoOCR", formData, {
         headers: { "content-type": "multipart/form-data" },
       });
+      setTitle(res.data);
     } catch (e) {
       console.error(e);
     }
