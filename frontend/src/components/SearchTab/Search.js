@@ -11,32 +11,14 @@ const Uploader = (props) => {
   const setTitle = (_Title) => {
     props.setTitle(_Title);
   };
-  const setFile =async (image) => {
+  const setFile = async (image) => {
     try {
       const formData = new FormData();
       formData.append("image", image);
       const res = await axios.post("/api/kakaoOCR", formData, {
         headers: { "content-type": "multipart/form-data" },
       });
-     console.log(res.data);
-     const { data } = res;
-     const newresult = [];
-     if (data.result) {
-      data.result.map((result) => {
-        newresult.push({
-          box: result.boxes,
-          recognitionwords: result.recognition_words
-        });
-        console.log(newresult);
-           
-        const json = newresult[0].recognitionwords[0];
-        
-        console.log(json);
-        setTitle(json);
-
-      });
-    }console.log(newresult);
-
+      setTitle(res.data);
     } catch (e) {
       console.error(e);
     }
