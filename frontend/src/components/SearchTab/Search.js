@@ -1,91 +1,73 @@
-import { useState } from "react";
+import React from "react";
 import "../../css/Ocr.css";
-
 import axios from "axios";
 import "antd/dist/antd.css";
 import "../../css/Search.scss";
-import { Button, Spin } from "antd";
 import SearchNews from "./SearchNews";
+import { Upload } from "antd";
+const { Dragger } = Upload;
 
 const Uploader = (props) => {
-  const [image, setImage] = useState("");
-
-  const [ocr, setOcr] = useState("");
-  
-
-  
   const setTitle = (_Title) => {
     props.setTitle(_Title);
   };
-  const fileUpload = (e) => {
-    let reader = new FileReader();
-  
-    
-    reader.onloadend = () => {
-      const img = reader.result;
-      if (img) {
-        setImage(img.toString());
-      }
-    }
-    if (e.target.files[0]) {
-      reader.readAsDataURL(e.target.files[0]); 
-      setFile(e.target.files[0]); 
-    }
-
-    
-  }
-  const setFile = (image) => {
-    
-    
+  const setFile =async (image) => {
     try {
-      const data = new FormData();
-      data.append("image", image);
-      fetch("https://dapi.kakao.com/v2/vision/text/ocr", {
-        method: "POST",
-        headers: {
-          Authorization: "KakaoAK 68843196c8a60e6e1ed99e6d093543a4",
-          
-        },
-        body: data,
-      }).then((response) => {
-        console.log("url:", "POST /kakaoAPI/ocr", "\nstatus:", response.status, "\nstatusText:", response.statusText);
-        const text = response.result;
-          text.map((el) => el.recognition_words[0])
-          .join(" ");
-          console.log(text);
-        setOcr(text);
-      })
-     
-     
+      const formData = new FormData();
+      formData.append("image", image);
+      const res = await axios.post("/api/kakaoOCR", formData, {
+        headers: { "content-type": "multipart/form-data" },
+      });
+     console.log(res.data);
+     const { data } = res;
+     const newresult = [];
+     if (data.result) {
+      data.result.map((result) => {
+        newresult.push({
+          box: result.boxes,
+          recognitionwords: result.recognition_words
+        });
+        console.log(newresult);
+           
+        const json = newresult[0].recognitionwords[0];
+        
+        console.log(json);
+        setTitle(json);
+
+      });
+    }console.log(newresult);
+
     } catch (e) {
       console.error(e);
     }
   };
- 
+  const dummyRequest = async ({ file, onSuccess }) => {
+    setTimeout(() => {
+      onSuccess();
+    }, 0);
+  };
+  const onChange = (info) => {
+    if (info.file.status === "done") setFile(info.fileList[0].originFileObj);
+  };
   return (
     <div className="App">
-    <div>
-    <label className="input-file-button" for="file">
-       이미지 업로드
-      </label>
-      <input
-        type="file"
-        name="file"
-        id="file"
-        onChange={fileUpload}
-        accept="image/*"
-        style={{display:"none"}}
-      />
-    
-   
-        <SearchNews title={props.title} setTitle={setTitle}></SearchNews>
-        
-        {ocr}
-     
+      <div>
+        <Dragger
+          maxCount={1}
+          accept="image/*"
+          customRequest={dummyRequest}
+          onChange={onChange}
+          showUploadList={false}
+        >
+          <p className="ant-upload-text">이미지를 업로드하세요.</p>
+        </Dragger>
+        <SearchNews
+          title={props.title}
+          setTitle={setTitle}
+          setFile={setFile}
+        ></SearchNews>
       </div>
-         
-      </div>
-  
+    </div>
   );
 };
 

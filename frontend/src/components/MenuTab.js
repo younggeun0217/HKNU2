@@ -17,6 +17,7 @@ export default function MenuTab() {
     {
       title: (
         <li
+          key="0"
           className={useIndex === 0 ? styles.active : ""}
           onClick={() => clickHandler(0)}
         >
@@ -28,6 +29,7 @@ export default function MenuTab() {
     {
       title: (
         <li
+          key="1"
           className={useIndex === 1 ? styles.active : ""}
           onClick={() => clickHandler(1)}
         >
