@@ -11,7 +11,7 @@ const Uploader = (props) => {
   const [image, setImage] = useState("");
 
   const [ocr, setOcr] = useState("");
-  const [loaded, setLoaded] = useState(false);
+  
 
   
   const setTitle = (_Title) => {
@@ -40,16 +40,23 @@ const Uploader = (props) => {
     try {
       const data = new FormData();
       data.append("image", image);
-      const res =  fetch("https://dapi.kakao.com/v2/vision/text/ocr", {
+      fetch("https://dapi.kakao.com/v2/vision/text/ocr", {
         method: "POST",
         headers: {
           Authorization: "KakaoAK 68843196c8a60e6e1ed99e6d093543a4",
           
         },
         body: data,
-      });
+      }).then((response) => {
+        console.log("url:", "POST /kakaoAPI/ocr", "\nstatus:", response.status, "\nstatusText:", response.statusText);
+        const text = response.result;
+          text.map((el) => el.recognition_words[0])
+          .join(" ");
+          console.log(text);
+        setOcr(text);
+      })
      
-      setOcr(res.result);
+     
     } catch (e) {
       console.error(e);
     }
@@ -73,10 +80,10 @@ const Uploader = (props) => {
    
         <SearchNews title={props.title} setTitle={setTitle}></SearchNews>
         
-      
+        {ocr}
      
       </div>
-   
+         
       </div>
   
   );
