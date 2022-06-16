@@ -15,15 +15,35 @@ const NewsSearchContainer = (props) => {
     setPageIndex(_Index);
     window.open(bars[_Index].link);
   };
+  const checkURL = (url) => {
+    return url.match(/(http|https?:\/\/.*\.(?:jpeg|jpg|gif|png))/i) != null;
+  };
   const handleButton = async () => {
+    if (checkURL(props.title)) {
+      //이미지 URL일 시 백엔드에서 처리 후(cors해결) 받아와서 파일로 만들어주기
+      const res = await axios.get("/api/imageURL", {
+        params: {
+          url: props.title,
+        },
+      });
+      const fileName = props.title.match(/[\w\.\$]+(?=jpeg|jpg|gif|png)\w+/g);
+      const contentType = res.data.contentType;
+      const buffer = res.data.buffer.data;
+      const blob = new Blob([new Uint8Array(buffer).buffer], {
+        type: contentType,
+      });
+      const file = new File([blob], fileName, { type: contentType });
+      props.setFile(file);
+    }
     try {
       const res = await axios.get("/api/naverNews", {
         params: {
-          query: props.title,
+          title: props.title,
         },
       });
       if (res && res.status === 200) {
         const { data } = res;
+        console.log(data)
         const newBars = [];
         if (data.items) {
           data.items.map((item, index) => {
@@ -37,6 +57,7 @@ const NewsSearchContainer = (props) => {
           });
         }
         setBars(newBars);
+        console.log(newBars)
       }
     } catch (e) {
       console.log("error ", e);
@@ -44,16 +65,14 @@ const NewsSearchContainer = (props) => {
   };
   return (
     <Fragment>
-      <div
-        style={{ display: "flex", justifyContent: "center", padding: "2rem" }}
-      >
+      <div style={{ display: "flex", justifyContent: "center", padding: "1%" }}>
         <Search
           placeholder="검색어 나오는 곳"
           value={props.title}
           onSearch={handleButton}
           onChange={handleQuery}
           onPressEnter={handleButton}
-          style={{ width: 200 }}
+          style={{ width: "40%" }}
         />
       </div>
 

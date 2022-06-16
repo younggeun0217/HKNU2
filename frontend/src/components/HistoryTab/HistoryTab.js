@@ -9,6 +9,7 @@ export default function HistoryTab(props) {
     {
       title: (
         <li
+          key="0"
           className={useIndex === 0 ? styles.active : ""}
           onClick={() => clickHandler(0)}
         >
@@ -19,6 +20,7 @@ export default function HistoryTab(props) {
     {
       title: (
         <li
+          key="1"
           className={useIndex === 1 ? styles.active : ""}
           onClick={() => clickHandler(1)}
         >
@@ -29,6 +31,7 @@ export default function HistoryTab(props) {
     {
       title: (
         <li
+          key="2"
           className={useIndex === 2 ? styles.active : ""}
           onClick={() => clickHandler(2)}
         >

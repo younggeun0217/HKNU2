@@ -13,6 +13,7 @@ export default function BarList(props) {
       {props.bars.map((bar) => {
         return (
           <Bar
+            key={bar.title}
             barClickHandler={ClickHandler}
             title={bar.title}
             detail={bar.detail + props.detailUnit}
