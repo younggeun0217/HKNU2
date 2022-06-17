@@ -1,10 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
-const multer = require("multer");
-const FormData = require("form-data");
-const upload = multer({ storage: multer.memoryStorage() });
-const { Blob } = require("buffer");
 require("dotenv").config();
 
 router.get("/", async function (req, res) {
