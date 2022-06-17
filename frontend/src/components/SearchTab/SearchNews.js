@@ -67,10 +67,16 @@ const NewsSearchContainer = (props) => {
   const handlePaste = (e) => {
     e.preventDefault();
     const items = e.clipboardData.items;
+    const getText = e.clipboardData.getData("text/plain");
+    if (getText) {
+      props.setTitle(getText);
+      return;
+    }
     for (let i = 0; i < items.length; i++) {
       if (items[i].type.indexOf("image") !== -1) {
         var pasteFile = items[i].getAsFile();
         props.setFile(pasteFile);
+        break;
       }
     }
   };
