@@ -1,7 +1,6 @@
 const express = require("express");
-const record = require("../record.js");
 const router = express.Router();
-const Record = require("../record.js");
+const Record = require("../schema/record.js");
 function delDays(days) {
   const date = new Date();
   date.setHours(0, 0, 0, 0);

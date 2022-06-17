@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
-const Record = require("../record.js");
+const Record = require("../schema/record.js");
 require("dotenv").config();
 
 /* GET home page. */
