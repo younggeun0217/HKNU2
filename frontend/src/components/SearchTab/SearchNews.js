@@ -34,6 +34,7 @@ const NewsSearchContainer = (props) => {
       });
       const file = new File([blob], fileName, { type: contentType });
       props.setFile(file);
+      return;
     }
     try {
       const res = await axios.get("/api/naverNews", {
